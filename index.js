@@ -18,6 +18,7 @@ function formatKoreanDate(dateString) {
 function buildDiscordMessage(data) {
   const now = Date.now();
   const tenMinutes = 10 * 60 * 1000;
+  const oneHour = 1 * 60 * 60 * 1000;
 
   const emails = Array.isArray(data.emails) ? data.emails : [];
 
@@ -25,7 +26,7 @@ function buildDiscordMessage(data) {
     const emailTime = new Date(email.date).getTime();
     const diff = now - emailTime;
 
-    const within10min = diff >= 0 && diff <= tenMinutes;
+    const within10min = diff >= 0 && diff <= oneHour;
 
     return within10min;
   });
