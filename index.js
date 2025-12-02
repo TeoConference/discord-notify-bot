@@ -16,27 +16,14 @@ function formatKoreanDate(dateString) {
 
 
 function buildDiscordMessage(data) {
-  const now = Date.now();
-  const tenMinutes = 10 * 60 * 1000;
-  const oneHour = 1 * 60 * 60 * 1000;
-
   const emails = Array.isArray(data.emails) ? data.emails : [];
 
-  const filtered = emails.filter(email => {
-    const emailTime = new Date(email.date).getTime();
-    const diff = now - emailTime;
-
-    const within10min = diff >= 0 && diff <= oneHour;
-
-    return within10min;
-  });
-
-  if (filtered.length === 0) return null;
+  if (emails.length === 0) return null;
 
   const message = `
-## 📨 10분 내 미확인 메일 알림 (${filtered.length}건)
+## 📨 현재 미확인 메일 알림 (${emails.length}건)
 
-${filtered
+${emails
     .map((email, i) => {
       const subject = email.subject || "(제목 없음)";
       const from = email.from || "";
